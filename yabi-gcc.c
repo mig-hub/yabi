@@ -4,6 +4,34 @@
 
 static char data_highway[30000];
 static char *p;
+static char decode[] = {
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 3, 6, 4, 5, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 7, 0, 8, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0 
+};
 
 int main(int argc, char **argv) {
 	
@@ -11,32 +39,7 @@ int main(int argc, char **argv) {
   long pos;
 	FILE *input;
 	static void *op[] = {
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&plus, &&comma, &&minus, &&dot, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&lt, &&next, &&gt, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&lb, &&next, &&rb, &&next, &&next, &&next, &&next, &&next, &&next,
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next,
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, 
-    &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next, &&next,
-    &&next, &&next, &&next, &&next, &&next, &&next 
+    &&next, &&gt, &&lt, &&plus, &&minus, &&dot, &&comma, &&lb, &&rb
   };
 
   if (argc > 1) {
@@ -87,7 +90,7 @@ int main(int argc, char **argv) {
 	next:
   command = getc(input);
   if (ignoring==1 && command!=']') goto next;
-  if (command!=EOF) goto *op[command];
+  if (command!=EOF) goto *op[decode[command]];
 	quit:
 	return 0;
 }
