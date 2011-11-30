@@ -3,6 +3,10 @@ YABI
 
 Yet Another Brainfuck Interpreter (Wow that is fucking original man !!!)
 
+First of all, I need to warn you.
+This interpreter is not yet finished.
+It currently cannot run any code with nested square brackets.
+
 Intall it with GCC or another C compiler (yeah it exists):
 
     gcc -o yabi yabi.c
@@ -16,7 +20,13 @@ Or give it a file:
     ./yabi test.bf
 
 You can also use it with a shebang but make sure your shebang line does not contain any commands listed below because they will be interpreted.
-You'll most likely have only dots `.` which are armless at this stage but be careful. There is an example called test_shebang
+You'll most likely have only dots `.` which are armless at this stage but be careful. There is an example called test_shebang.
+
+One last thing, there is now a another version that takes advantage of the GCC feature "label as value", so if you compile with GCC
+use this one instead which is approximately 4 times faster. Even if to be honest, we never code something in brainfuck that takes so
+much time that you could notice the difference `;-)`
+
+    gcc -o yabi yabi-gcc.c
 
 BRAINFUCK
 =========
