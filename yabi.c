@@ -31,7 +31,16 @@ int do_command(char command, FILE *input)
 		break;
 	case '[':
 		pos = ftell(input);
-		while((*p) != 0) {
+		if ((*p) == 0) {
+			int loopc = 0;
+			for(;;)
+			{
+				c = getc(input);
+				if (loopc == 0 && c == ']') break;
+				if (c == ']') loopc--;
+				if (c == '[') loopc++;
+			}
+		} else while((*p) != 0) {
 			fseek(input, pos, SEEK_SET);
 			c = getc(input);
 			while( c!=']' && c!=EOF) {
